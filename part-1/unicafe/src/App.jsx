@@ -1,5 +1,15 @@
 import { useState } from 'react';
 
+const StatisticsLine = ({ text, value }) => {
+  return (
+    <>
+      <div>
+        {text} {value}
+      </div>
+    </>
+  );
+};
+
 const Statistics = ({ good, bad, neutral }) => {
   if (good === 0 && bad === 0 && neutral === 0) {
     return (
@@ -8,19 +18,28 @@ const Statistics = ({ good, bad, neutral }) => {
       </>
     );
   }
+  const average = (good + neutral + bad) / 3;
+  const positive = (good + neutral) / 3;
   return (
     <>
       <h2>Statistics</h2>
+      <table>
+        <tbody>
+          <StatisticsLine text="good" value={good} />
 
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {good + neutral + bad}</p>
-      <p>average {(good + neutral + bad) / 3}</p>
-      <p>positive {(good + neutral) / 3}</p>
+          <StatisticsLine text="neutral" value={neutral} />
+
+          <StatisticsLine text="bad" value={bad} />
+
+          <StatisticsLine text="average" value={average} />
+        </tbody>
+
+        <StatisticsLine text="positive" value={positive} />
+      </table>
     </>
   );
 };
+
 const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
